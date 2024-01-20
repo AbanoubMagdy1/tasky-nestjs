@@ -7,7 +7,7 @@ import { Model } from 'mongoose';
 
 @Injectable()
 export class TasksService {
-  constructor(@InjectModel(Task.name) private taskModel: Model<typeof Task>) {}
+  constructor(@InjectModel('task') private taskModel: Model<typeof Task>) {}
 
   async create(createTaskDto: CreateTaskDto) {
     const task = await this.taskModel.create(createTaskDto);
