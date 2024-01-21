@@ -5,11 +5,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
+import { APP_FILTER } from '@nestjs/core';
+import { MongooseExceptionFilter } from './errors/handleMongoError';
 ConfigModule.forRoot();
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.MONGO_URL), TasksModule, UsersModule],
+  imports: [
+    MongooseModule.forRoot(process.env.MONGO_URL), TasksModule, UsersModule,
+  ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, {provide: APP_FILTER, useClass: MongooseExceptionFilter}],
 })
 export class AppModule {}
