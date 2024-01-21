@@ -21,7 +21,7 @@ export class UsersService {
     }
 
     async login(username: string, password: string) {
-        const user = await this.userModel.findOne({ username }).select('-password');
+        const user = await this.userModel.findOne({ username })
 
         if(!user) {
             throw new HttpException('User not found', 404);
@@ -32,7 +32,7 @@ export class UsersService {
         if(!isMatch) {
             throw new HttpException('Invalid credentials', 401);
         }
-
+        user.password = undefined;
         const token = user.generateAccessToken();
         return { user, token };
     }

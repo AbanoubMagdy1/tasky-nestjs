@@ -23,7 +23,6 @@ export const userSchema = new Schema<UserI>({
         type: String,
         required: [true, 'Please provide a password'],
         minlength: 6,
-        select: false
     },
     isAdmin: {
         type: Boolean,

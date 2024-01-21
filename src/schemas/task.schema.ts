@@ -1,6 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Document, PopulatedDoc, Schema, model } from "mongoose";
+import { UserI } from "./user.schema";
 
-export const TaskSchema = new Schema({
+export interface TaskI extends Document {
+    description: string;
+    completed: boolean;
+    user: PopulatedDoc<UserI>;
+}
+
+export const TaskSchema = new Schema<TaskI>({
     description: {
         type: String,
         required: true
@@ -8,9 +15,14 @@ export const TaskSchema = new Schema({
     completed: {
         type: Boolean,
         default: false
+    },
+    user: {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
     }
 });
 
-const Task = model('Task', TaskSchema);
+TaskSchema.index({ 'user': 1 });
+const Task = model<TaskI>('Task', TaskSchema);
 
 export default Task;
