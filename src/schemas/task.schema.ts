@@ -1,10 +1,12 @@
 import { Document, PopulatedDoc, Schema, model } from "mongoose";
 import { UserI } from "./user.schema";
+import { CategoryI } from "./category.schema";
 
 export interface TaskI extends Document {
     description: string;
     completed: boolean;
     user: PopulatedDoc<UserI>;
+    category: PopulatedDoc<CategoryI>;
 }
 
 export const TaskSchema = new Schema<TaskI>({
@@ -19,6 +21,10 @@ export const TaskSchema = new Schema<TaskI>({
     user: {
         type: Schema.Types.ObjectId,
         ref: 'User'
+    },
+    category: {
+        type: Schema.Types.ObjectId,
+        ref: 'Category'
     }
 });
 

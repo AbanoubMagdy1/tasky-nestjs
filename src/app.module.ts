@@ -7,11 +7,12 @@ import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
 import { APP_FILTER } from '@nestjs/core';
 import { MongooseExceptionFilter } from './errors/handleMongoError';
+import { CategoryModule } from './category/category.module';
 ConfigModule.forRoot();
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGO_URL), TasksModule, UsersModule,
+    MongooseModule.forRoot(process.env.MONGO_URL), TasksModule, UsersModule, CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService, {provide: APP_FILTER, useClass: MongooseExceptionFilter}],

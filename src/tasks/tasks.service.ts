@@ -15,7 +15,7 @@ export class TasksService {
   }
 
   async findAll(userId: string) {
-    const tasks = await this.taskModel.find({ user: userId});
+    const tasks = await this.taskModel.find({ user: userId}).populate({path: 'category', select: 'name'});
     return tasks;
   }
 
