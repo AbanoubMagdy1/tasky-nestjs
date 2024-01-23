@@ -5,7 +5,7 @@ import IsAuthGuard from 'src/guards/isAuth';
 
 @Controller('categories')
 @UseGuards(IsAuthGuard)
-export class TasksController {
+export class CategoryController {
   constructor(private readonly categoryService: CategoryService) {}
 
   @Post()
